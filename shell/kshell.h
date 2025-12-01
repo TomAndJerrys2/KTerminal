@@ -2,15 +2,22 @@
 //
 // Kyle Brady 2025
 
+#include "commands/commands.h"
+#include "commands/helper.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+
 #include <dirent.h>
+
+// System imports
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <fcntl.h>
 #include <sys/wait.h>
+
+#include <fcntl.h>
 #include <signal.h>
 #include <ctype.h>
 
