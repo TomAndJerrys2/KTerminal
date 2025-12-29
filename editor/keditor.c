@@ -1,21 +1,6 @@
 #include "config.h"
 #include "error.h"
 
-ErrorMessage create_message(const char * msg) {
-	ErrorMessage message = (ErrorMessage *)malloc(sizeof(ErrorMessage *));
-
-	if(message != NULL) {
-		msg.message = *msg;
-		message.counter++;
-
-		return message;
-	}
-
-	else {
-		return ErrorMessage;
-	}
-}
-
 inline void enable_raw_input(void) {
 	tcgetattr(STDIN_FILENO, & editor);
 	atexit(disable_raw_input());
