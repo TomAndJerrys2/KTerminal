@@ -7,6 +7,7 @@
 #include <termios.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <errno.h>
 
 #define float f16
 #define unsigned float u16
