@@ -1,19 +1,52 @@
-# Kyle's Custom Shell for GNU Systems
-Designed for Unix Systems. It was meant as an extension tool and a way to learn about the unix shell and its commands. While making this
-I added a lot of useful features for which i found to be helpful whilst in development or using linux in general. Whilst this is not supposed to be very flashy
-I tried to make the feature set as lightweight but robust as possible and making the error handling precise.
 
-# Features
-- Custonm Terminal shell
-- Linux Debugger (for Processes)
-- Web server (built in C)
-- Terminal Text-Editor (Coffee Editor: https://github.com/TomAndJerrys2/Coffee-Editor)
-- KYCC (Kyle's C Compiler: https://github.com/TomAndJerrys2/KYCC)
-- Custom Hex Editor
-- Video Player and Photo Viewer (popen and vopen utilities)
-- Commands: cd, dir, mkdir, rmdir, mkfile, rmfile, cat, grep,
-            help, history, webserv, cedit, exit, popen, vopen,
-            ping, route, whoami, disk, stats, etc...
+# /* KTerminal */
 
-- External Commands that are featured in this build are found in Commands
-- These Include features I used often in daily use such as: zip, unzip, gzip, gunzip,
+# UNIX-Based Terminal Emulator and Shell
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/) 
+
+> [!NOTE]
+> This Piece of software is intended for myself and is still in active 
+> development. Certain Pieces all tools may not work but we'll get there!
+
+A Unix Terminal Emulator and Text Editor project with custom built-ins and bash-derived commands. Built for my own workflow on my Linux workspace. Originally, and still is, intended for my Toy Operating system "Coffee OS" where the command set may differ slightly but will have the same functionality.
+
+This is a pet project meant for myself. In order to understand the theory behind system calls and Low-level hardware manipulation from the command-line. My Goal with this is to create a sustainable, modular design that can be updated in a live environment, i.e changing the source code will affect live changes in the terminal (for the debug build) emulating that of a JIT workflow;
+
+the terminal acts as a TTY emulator built using the QT Framework with QWidgets. The inbuilt text editor "keditor" is based of two source-code projects which I have found impactful: Kilo - a lesser-known but nicely implemented, lightweight editor and Neovim an editor which I grew to love over the last couple of years.
+
+
+## Acknowledgements
+
+- Huge Thanks to these projects for making the learning much easier!
+    - [Neovim Repository](https://github.com/neovim/neovim)
+    - [Kilo Editor Respository](https://github.com/antirez/kilo)
+    - [QT Framework](https://github.com/qt/qt5)
+
+
+## Authors
+
+- [@TomAndJerrys2](https://github.com/TomAndJerrys2)
+
+
+## Roadmap
+
+- Working text editor integration
+    - In-built commands that are system independent
+    - Memory optimizations for a lightweight build
+    - Syntax Hightlighting and Intellisense behaviour
+    
+- Beautified Interface for easier usage
+
+- Shell (based off bash behaviour) will be independent
+    - Low-Level Kernel interaction for Process Spawning
+    - Possible Multi-Threaded behaviour for working Multiple Spawns
+    - Easy to use for already existing tools: i.e GDB, Valgrind, etc
+
+- Current Focus: Basic working Debug build with proper code-quality
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
