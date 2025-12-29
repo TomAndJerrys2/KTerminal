@@ -96,7 +96,7 @@ char *builtin_str[] = {
 	"grep", "sizeof" 
 };
 
-// Library Functions by Kyle Brady
+// External Library Apps that are/will be included
 //
 // As KShell and KTerminal function as my custom main drivers
 // it's important to make somgething that's robust but also very
