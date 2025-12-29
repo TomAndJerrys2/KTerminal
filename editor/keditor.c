@@ -12,7 +12,14 @@ inline void enable_raw_input(void) {
 	// ICANON lets us turn of canonical mode
 	// which allows us to read from byte to byte
 	// instead of from line to line
-	raw.c_lflag &= ~(ECHO | ICANON);
+	raw_input.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
+
+	// IXON is an old flag for transmisson operations
+	// XOFF to pause and XON will resume the transmission
+	raw_input.c_iflag &= ~(ICRNL | IXON);
+	
+	// OPOST disables post-processing of output streams
+	raw_input.c_oflag &= ~(OPOST);
 
 	tcsetatttr(STDIN_FILENO, TCSAFLUSH, & raw_input);
 }
@@ -33,9 +40,9 @@ i32 main(void) {
 	while(read(STDIN_FILENO, & input, 1) == true
 			&& input != 'q') {
 		if(iscntrl(input)) 
-			printf("%d\n", input);
+			printf("%d\r\n", input);
 		else 
-			printf("%d [%c] \n", input, input);
+			printf("%d [%c] \r\n", input, input);
 	}
 
 	return EXIT_SUCCESS;
