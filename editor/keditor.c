@@ -1,8 +1,14 @@
 #include "config.h"
 #include "error.h"
 
+void kill_editor(const char * msg) {
+	perror(msg); exit(1);
+}
+
 inline void enable_raw_input(void) {
-	tcgetattr(STDIN_FILENO, & editor);
+	if(tcgetattr(STDIN_FILENO, & editor) == -1)
+		kill_editor("tcgetattr");
+
 	atexit(disable_raw_input());
 	
 	struct termios raw_input = editor;
@@ -33,28 +39,37 @@ inline void enable_raw_input(void) {
 	raw_input.c_cc[VMIN] = 0;
 	raw_input.c_cc[VTIME] = 1;
 
-	tcsetatttr(STDIN_FILENO, TCSAFLUSH, & raw_input);
+	if(tcsetatttr(STDIN_FILENO, TCSAFLUSH, & raw_input) == -1)
+		kill_editor("tcsetattr");
 }	
 
 inline void disable_raw_input(void) {
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, & editor);
-}
+	if(tcsetattr(STDIN_FILENO, TCSAFLUSH, & editor) == -1)
+		kill_editor("tcsetattr");
+} 
 
 i32 main(void) {
 	
+	i32 is_running = 1;
+
 	enable_raw_input();
 	
 	// Read the result of the character
 	// -- q --> quit
-	while(read(STDIN_FILENO, & input, 1) == true && input != 'q') {
+	while(is_running) {
+
+		if(read(STDIN_FILENO, & input, 1) == -1 
+				&& errno != EAGAIN)
+			kill_editor("read");
+
 		// set as null terminator by default for memory purposes
 		char input = '\0';
-
-
 		if(iscntrl(input)) 
 			printf("%d\r\n", input);
 		else 
 			printf("%d [%c] \r\n", input, input);
+
+		if(input == 'q') break;
 	}
 
 	return EXIT_SUCCESS;
