@@ -9,18 +9,22 @@
 #include <ctype.h>
 #include <errno.h>
 
-#define float f16
-#define unsigned float u16
+#include "error.h"
 
-#define int i32
-#define unsigned int u32
+struct termios editor;
 
-#define double d64
-#define unsigned double u64
-
-typedef struct termios editor;
-
+// ##### Raw Input functions ##### //
 inline void enable_raw_input(void);
 inline void disable_raw_input(void);
+void kill_editor(const char *);
+
+// #### Editor Key Events #### //
+char editor_read_key(void);
+void editor_process_key(void);
+
+/* ################################ */
+//	      Editor Keys           //
+/* ################################ */
+#define CTRL_KEY(key) ((key) & 0x0f)
 
 #endif

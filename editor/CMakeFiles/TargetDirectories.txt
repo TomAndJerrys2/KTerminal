@@ -1,0 +1,3 @@
+/home/kyle/Desktop/thePlan/KTerminal/editor/CMakeFiles/keditor.dir
+/home/kyle/Desktop/thePlan/KTerminal/editor/CMakeFiles/edit_cache.dir
+/home/kyle/Desktop/thePlan/KTerminal/editor/CMakeFiles/rebuild_cache.dir

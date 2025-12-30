@@ -1,12 +1,26 @@
+// Keditor -- In working progress :))
+#include <stdint.h> 
 #include "config.h"
-#include "error.h"
+
+#define i8 int8_t
+
+#define i16 int16_t
+#define i32 int32_t
+
+#define u16 uint16_t
+#define u32 uint32_t
 
 void kill_editor(const char * msg) {
 	perror(msg); exit(1);
 }
 
+inline void disable_raw_input(void) {
+	if(tcsetattr(STDIN_FILENO, TCSAFLUSH, &editor) == -1)
+		kill_editor("tcsetattr");
+} 
+
 inline void enable_raw_input(void) {
-	if(tcgetattr(STDIN_FILENO, & editor) == -1)
+	if(tcgetattr(STDIN_FILENO, &editor) == -1)
 		kill_editor("tcgetattr");
 
 	atexit(disable_raw_input());
@@ -25,7 +39,7 @@ inline void enable_raw_input(void) {
 	//
 	// passed via a bitwise operation as CS8 is not a flag
 	// but a bit mask
-	raw_input.cflag |= (CS8);	
+	raw_input.c_cflag |= (CS8);	
 
 	// c_lflag is a field for local flags
 	// similar to flag fields like c_iflag
@@ -39,37 +53,20 @@ inline void enable_raw_input(void) {
 	raw_input.c_cc[VMIN] = 0;
 	raw_input.c_cc[VTIME] = 1;
 
-	if(tcsetatttr(STDIN_FILENO, TCSAFLUSH, & raw_input) == -1)
+	if(tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw_input) == -1)
 		kill_editor("tcsetattr");
 }	
 
-inline void disable_raw_input(void) {
-	if(tcsetattr(STDIN_FILENO, TCSAFLUSH, & editor) == -1)
-		kill_editor("tcsetattr");
-} 
-
-i32 main(void) {
+i8 main() {
 	
-	i32 is_running = 1;
+	i8 is_running = 1;
 
 	enable_raw_input();
 	
 	// Read the result of the character
 	// -- q --> quit
 	while(is_running) {
-
-		if(read(STDIN_FILENO, & input, 1) == -1 
-				&& errno != EAGAIN)
-			kill_editor("read");
-
-		// set as null terminator by default for memory purposes
-		char input = '\0';
-		if(iscntrl(input)) 
-			printf("%d\r\n", input);
-		else 
-			printf("%d [%c] \r\n", input, input);
-
-		if(input == 'q') break;
+		editor_process_key();
 	}
 
 	return EXIT_SUCCESS;

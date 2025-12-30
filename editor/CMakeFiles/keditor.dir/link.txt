@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/keditor.dir/keditor.c.o CMakeFiles/keditor.dir/key.c.o -o keditor 
